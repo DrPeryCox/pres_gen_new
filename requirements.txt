@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
+python-pptx
+aiofiles
+pdf2image
+PyPDF2
+celery[redis]

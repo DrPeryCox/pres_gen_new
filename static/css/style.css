@@ -1,0 +1,38 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.theme-card .card-header {
+    background-color: #dc3545; /* Bootstrap 'danger' red */
+    color: white;
+    font-weight: bold;
+}
+
+.btn-custom-red {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.btn-custom-red:hover {
+    background-color: #c82333; /* Darker red on hover */
+    color: white;
+    border-color: #bd2130;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+pre {
+    background-color: #e9ecef;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+}

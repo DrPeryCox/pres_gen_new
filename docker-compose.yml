@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Сервис Redis (брокер сообщений для Celery)
+  redis:
+    image: redis:7-alpine
+    container_name: my_app_redis
+    # Порт 6380 на хосте будет перенаправлен на 6379 в контейнере
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+
+  # Сервис веб-приложения FastAPI
+  web:
+    build: .
+    container_name: my_app_web
+    # Порт 8877 на хосте будет перенаправлен на 8000 в контейнере
+    ports:
+      - "8877:8000"
+    # Монтируем текущую директорию в /app контейнера
+    # Это позволяет видеть изменения кода без пересборки образа (удобно для разработки)
+    volumes:
+      - .:/app
+    # Переменная окружения для подключения к Redis
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    # Команда для запуска uvicorn сервера
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    # Запускать только после того, как сервис redis будет готов
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Сервис Celery воркера
+  worker:
+    build: .
+    container_name: my_app_worker
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    # Команда для запуска воркера
+    command: celery -A celery_worker.celery_app worker --loglevel=info
+    depends_on:
+      - redis
+    restart: unless-stopped

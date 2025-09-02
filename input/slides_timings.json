@@ -1,0 +1,5 @@
+[
+  {"slide": "input/slide_01.png", "start": 0, "end": 27},
+  {"slide": "input/slide_02.png", "start": 27, "end": 94},
+  {"slide": "input/slide_03.png", "start": 94, "end": 126}
+]

@@ -1,0 +1,23 @@
+__pycache__
+.DS_Store
+
+# Environment files
+.env
+env/
+venv/
+venv_mytrek/
+
+# pyenv
+.python-version
+
+# pycharm files
+.idea
+
+# uploaded files
+uploads/
+
+#cli tool
+utils/cli.py
+
+# logs
+*.log
