@@ -58,6 +58,7 @@ def slide_to_video(slide_img_path, duration, output_video_path):
         '-t', str(duration),
         '-vf', 'scale=1080:1080',  # Левая часть (2/3 ширины)
         '-c:v', 'libx264',
+        '-pix_fmt', 'yuv420p',
         '-y',
         output_video_path
     ]
@@ -71,13 +72,13 @@ def resize_video(input_video_path, output_video_path):
     -c:v libx264 — кодек видео.
     -y — перезаписывать без запроса.
     """
-    logging.info('+++++++++++++++++++++++++++ Resizing video')
     cmd = [
         'ffmpeg',
         '-i', input_video_path,
         '-hide_banner',
         '-vf', 'scale=840:1080',
         '-c:v', 'libx264',
+        '-pix_fmt', 'yuv420p',
         '-y',
         output_video_path
     ]
@@ -107,8 +108,9 @@ def combine_videos(slide_video_path, speaker_video_path, output_video_path):
         '-hide_banner',
         '-filter_complex', '[0:v][1:v]hstack=inputs=2[v]',
         '-map', '[v]',
-        '-map', '1:a?',  # Аудио только из видео спикера
+        '-map', '1:a?',
         '-c:v', 'libx264',
+        '-pix_fmt', 'yuv420p',
         '-c:a', 'aac',
         '-y',
         output_video_path
